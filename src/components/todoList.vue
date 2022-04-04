@@ -1,33 +1,39 @@
 <template>
-    <div class="todo">
-        <h1 class="title">My TodoList</h1>
-        <div class="todoList">
-            <div class="listPart">
-                <task-list/>
+    <div>
+        <div class="todo">
+            <h1 class="title">My TodoList</h1>
+            <div class="todoList">
+                <div class="listPart">
+                    <task-list/>
+                </div>
+                <div class="todoForm">
+                    <button v-on:click="isHiddenForm = !isHiddenForm">+</button>
+                    <!-- sync permet de donner l'autorisation à l'enfant de modifier le parent -->
+                </div>
             </div>
-            <div class="todoForm">
-                <show-hide-form :hidden.sync="isHiddenForm" :naruto.sync="naruto" test="Hello World"/>
-                <!-- sync permet de donner l'autorisation à l'enfant de modifier le parent -->
+            <div :class=" 'form ' + isHiddenForm ">
+                <add-task-form/>
             </div>
-        </div>
-        <div :class=" 'form ' + isHiddenForm ">
-            <add-task-form/>
         </div>
     </div>
 </template>
 
 <script>
 import AddTaskForm from './addTaskForm.vue';
-import ShowHideForm from './showHideForm.vue';
 import taskList from './taskList.vue';
 export default {
-    components: { taskList, ShowHideForm, AddTaskForm },
+    components: { taskList, AddTaskForm },
     name: "TodoList",
+    data(){
+        return{
+            isHiddenForm: false,
+        }
+    },
     methods: {
-        /* add: function(){
+        add: function(){
             this.list_task.push({name: "Hellow"})
             console.log(this.list_task)
-        } */
+        } 
     }
 };
 </script>

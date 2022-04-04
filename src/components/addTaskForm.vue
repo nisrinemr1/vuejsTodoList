@@ -26,18 +26,4 @@ export default {
 </script>
 
 <style scoped>
-.form{
-    text-align: end;
-    padding-right: 3%;
-    transition: all .7s ease-in-out;
-    overflow: hidden;
-}
-
-.form.true{
-    height: 100px;
-}
-
-.form.false{
-    height: 0px;
-}
 </style>
