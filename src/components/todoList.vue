@@ -1,8 +1,8 @@
 <template>
     <div class="todo">
         <h1 class="title">My TodoList</h1>
-        <div class="container">
-            <div class="todoList">
+        <div class="todoList">
+            <div class="listPart">
                 <div class="searchBar">
                     <input type="text" placeholder="Rechercher une tâche">
                 </div>
@@ -14,28 +14,28 @@
                 </div>
                 <div class="tasks">
                     <div v-for="item in list_task" :key="item.name" class="taskItem">
-                        <input type="checkbox">
+                        <input class="avenir" type="checkbox">
                         <h3>{{item.name}}</h3>
                     </div>
                 </div>
                         
             </div>
             <div class="todoForm">
-                <button @click="add" class="addTodo">+</button>
-                <div class="form">
-                    <label>Tâche: </label>
-                    <input :value="taskeName"
-                        placeholder="Rechercher une tâche"
-                        @input="taskName = $event.target.value"
-                    />
-                    <select class="btn" id="priority">
-                        <option value="urgent">Urgent</option>
-                        <option value="important">Important</option>
-                        <option value="not urgent">Not urgent</option>
-                        <option value="not important">Not important</option>
-                    </select>
-                </div>
+                <button v-on:click="isHiddenForm = !isHiddenForm">+</button>
             </div>
+        </div>
+        <div :class=" 'form ' + isHiddenForm ">
+            <label>Tâche: </label>
+            <input class="avenir" 
+                :value="taskeName"
+                placeholder="Rechercher une tâche"
+                @input="taskName = $event.target.value"
+            />
+            <select v-model="selectedItem">
+                <option v-for="item in items" :key="item" :value="item">{{item}}</option>
+            </select>
+            <br>
+            <button class="btn">Ajouter</button>
         </div>
     </div>
 </template>
@@ -44,6 +44,7 @@
 export default {
     name: "TodoList",
     data(){
+        
         return{
             list_task:[
                 {
@@ -52,15 +53,17 @@ export default {
                 {
                     name:"todo2"
                 }
-            ]
+            ],
+            items: ['urgent', 'important', 'notImportant', 'notImportant'],
+            selectedItem: "important",
+            isHiddenForm: false,
         }
     },
     methods: {
-        add: function(){
-            alert("test")
+        /* add: function(){
             this.list_task.push({name: "Hellow"})
             console.log(this.list_task)
-        }
+        } */
     }
 };
 </script>
@@ -68,10 +71,11 @@ export default {
 <style>
 .todo { 
     background-color: #bc8f8f;
-    height: 800px;
-    border-radius: 4%;
-    padding-left: 50px;
-    padding-right: 50px;
+    height: 90vh;
+}
+
+.avenir{
+    font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
 .title{
@@ -79,28 +83,30 @@ export default {
     padding-bottom: 10px;
     text-align: center;
 }
-.container{
-    width: 800px;
+.todoList{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-content: space-between;
     width: 100%;
-    height: 100%;
+    height: 75%;
 }
 
-.todoList{
+.listPart{
     width: 50%;
+    
 }
 
 .todoForm{
-    width: 30%;
+    width: 40%;
+    height: 100%;
     text-align: center;
     padding-left: 20px;
 }
 
 .searchBar input{
     margin-bottom: 50px;
-    width: 440px;
+    width: 100%;
 }
 
 .categories{
@@ -118,4 +124,21 @@ export default {
 .taskItem{
     display: flex;
 }
+
+.form{
+    text-align: end;
+    padding-right: 3%;
+    transition: all .7s ease-in-out;
+    overflow: hidden;
+}
+
+.form.true{
+    height: 100px;
+}
+
+.form.false{
+    height: 0px;
+}
+
+
 </style>
