@@ -3,62 +3,26 @@
         <h1 class="title">My TodoList</h1>
         <div class="todoList">
             <div class="listPart">
-                <div class="searchBar">
-                    <input type="text" placeholder="Rechercher une tâche">
-                </div>
-                <div class="categories">
-                    <button class="btn">Urgent</button>
-                    <button class="btn">Important</button>
-                    <button class="btn">Pas urgent</button>
-                    <button class="btn">Pas important</button>
-                </div>
-                <div class="tasks">
-                    <div v-for="item in list_task" :key="item.name" class="taskItem">
-                        <input class="avenir" type="checkbox">
-                        <h3>{{item.name}}</h3>
-                    </div>
-                </div>
-                        
+                <task-list/>
             </div>
             <div class="todoForm">
-                <button v-on:click="isHiddenForm = !isHiddenForm">+</button>
+                <show-hide-form :hidden.sync="isHiddenForm" :naruto.sync="naruto" test="Hello World"/>
+                <!-- sync permet de donner l'autorisation à l'enfant de modifier le parent -->
             </div>
         </div>
         <div :class=" 'form ' + isHiddenForm ">
-            <label>Tâche: </label>
-            <input class="avenir" 
-                :value="taskeName"
-                placeholder="Rechercher une tâche"
-                @input="taskName = $event.target.value"
-            />
-            <select v-model="selectedItem">
-                <option v-for="item in items" :key="item" :value="item">{{item}}</option>
-            </select>
-            <br>
-            <button class="btn">Ajouter</button>
+            <add-task-form/>
         </div>
     </div>
 </template>
 
 <script>
+import AddTaskForm from './addTaskForm.vue';
+import ShowHideForm from './showHideForm.vue';
+import taskList from './taskList.vue';
 export default {
+    components: { taskList, ShowHideForm, AddTaskForm },
     name: "TodoList",
-    data(){
-        
-        return{
-            list_task:[
-                {
-                    name: "Todo1"
-                },
-                {
-                    name:"todo2"
-                }
-            ],
-            items: ['urgent', 'important', 'notImportant', 'notImportant'],
-            selectedItem: "important",
-            isHiddenForm: false,
-        }
-    },
     methods: {
         /* add: function(){
             this.list_task.push({name: "Hellow"})
@@ -94,7 +58,6 @@ export default {
 
 .listPart{
     width: 50%;
-    
 }
 
 .todoForm{
@@ -104,15 +67,6 @@ export default {
     padding-left: 20px;
 }
 
-.searchBar input{
-    margin-bottom: 50px;
-    width: 100%;
-}
-
-.categories{
-    display: flex;
-    justify-content: space-between;
-}
 .btn{
     background-color: #af6a7e;
     padding: 5px 5px 5px 5px;
