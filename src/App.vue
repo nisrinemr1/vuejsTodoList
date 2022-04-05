@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import todoList from './components/todoList.vue'
+import todoList from './components/todo.vue'
 
 export default {
   components: { todoList },
@@ -14,14 +14,15 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-html{
-  background-color: #ffe5eb;
-}
+
+  body{
+    margin: 0;
+    background-color: #ffe5eb;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+  }
+
+  h1, h2, p {
+    margin: 0;
+  }
+
 </style>

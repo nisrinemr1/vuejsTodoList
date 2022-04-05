@@ -23,6 +23,7 @@
 <script>
 export default {
     name: "TaskList",
+
     data(){ 
         return{
             list_task:[{
@@ -32,6 +33,11 @@ export default {
             }]
         }
     },
+    methods:{
+        addTask(task){
+            this.tasks = [...this.tasks, task]
+        }
+    }
 }
 </script>
 

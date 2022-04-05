@@ -1,20 +1,37 @@
 <template>
-    <div>
+    <div class="form">
+        <button @click="close">X</button>
         <form @submit="addTask">
+
+
+            <!-- LABEL -->
             <label>Tâche: </label>
+
+            <!-- LABEL -->
+            <label>{{text}}</label>
+
+
+            <!-- NAME -->
             <input class="avenir" 
                 placeholder="Ajouter une tâche"
                 v-model="name"
                 id="idTask"
-                name="name"/> 
-            <select v-model="importance" name="importance">
+                name="name"/>
+
+
+            <!-- CATEGORY -->
+            <select v-model="category" name="importance">
                 <option disabled value="">Importance</option>
                 <option value="urgent">Urgent</option>
                 <option value="important">Important</option>
                 <option value="pasimportant">Pas important</option>
             </select>
-            <br />
-            <button type="submi">Ajouter</button>  <!-- v-bind:value="list_task.name + list_task.importance" -->
+            
+
+            <!--  CATEGORY -->
+            <button type="submi">Ajouter</button> 
+        
+
         </form>
     </div>
 </template>
@@ -23,13 +40,13 @@
 export default {
     name: "addTaskForm",
     props:{
-        list_task: Array
+        show: Boolean,
+        text: String
     },
     data(){
         return{
-            selected:"",
             name:"",
-            importance:""
+            category: ""
         }
     },
     methods:{
@@ -39,11 +56,7 @@ export default {
                 alert('Ajouter une tâche!')
                 return
             }
-            /* this.list_task.push.$emit({
-                    id: this.nextTask++,
-                    name: this.taskName,
-                    importance: this.importance
-            }) */
+
             const newTask={
                 id: Math.floor(Math.random() * 10000),
                 name: this.name,
@@ -56,9 +69,41 @@ export default {
 
             this.name = ''
             this.importance = ''
+        }, 
+        close(){
+            this.$emit("update:show", false)
         }
     }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+
+.form{
+    text-align: end;
+    transition: all .7s ease-in-out;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: end;
+    background-color: rgb(171, 92, 61);
+
+    &.true{
+        height: 100px;
+    }
+    
+    &.false{
+        height: 0px;
+    }
+    form{
+        padding-top: 5%;
+        padding-bottom: 5%;
+        padding-right: 2%;
+    }
+}
+
+
+
 </style>
