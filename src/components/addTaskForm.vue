@@ -17,7 +17,7 @@ export default {
     name: "addTaskForm",
     data(){
         return{
-            items: ['urgent', 'important', 'notImportant', 'notImportant'],
+            items: ['urgent', 'important', 'pas urgent', 'pas important'],
                     selectedItem: "important",
                     isHiddenForm: false, 
         }
