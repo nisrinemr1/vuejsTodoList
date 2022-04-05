@@ -6,7 +6,6 @@
         <div class="categories">
             <button class="btn">Urgent</button>
             <button class="btn">Important</button>
-            <button class="btn">Pas urgent</button>
             <button class="btn">Pas important</button>
         </div>
         <div class="tasks">
@@ -14,6 +13,8 @@
                 <!-- get the name from the list_task  -->
                 <input class="avenir" type="checkbox">
                 <h3>{{item.name}}</h3> <!-- to show up the item name -->
+                <br />
+                <p class="importance">{{item.importance}}</p>
             </div>
         </div>
     </div>
@@ -24,16 +25,13 @@ export default {
     name: "TaskList",
     data(){ 
         return{
-            list_task:[
-                {
-                    name: "Todo1"
-                },
-                {
-                    name:"todo2"
-                }
-            ]
+            list_task:[{
+                id: 0,
+                name: null,
+                importance: null
+            }]
         }
-    }
+    },
 }
 </script>
 
@@ -45,5 +43,13 @@ export default {
     .categories{
         display: flex;
         justify-content: space-between;
+    }
+    .taskItem{
+        border:1px solid pink;
+        margin-bottom: 5%;
+    }
+    .importance{
+        margin-left: 50%;
+        margin-top: 6%;
     }
 </style>

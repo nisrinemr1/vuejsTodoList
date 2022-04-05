@@ -1,25 +1,61 @@
 <template>
     <div>
-        <label>Tâche: </label>
-        <input class="avenir" 
-            placeholder="Rechercher une tâche"
-        />
-        <select v-model="selectedItem"> <!-- pre define selection which is "important" in the data-->
-            <option v-for="item in items" :key="item" :value="item">{{item}}</option>
-            <!-- v-for is used to use elements from a tab. "Take the item in table items" :key is needed as well!-->
-        </select>
-        <br>
-        <button class="btn">Ajouter</button>
+        <form @submit="addTask">
+            <label>Tâche: </label>
+            <input class="avenir" 
+                placeholder="Ajouter une tâche"
+                v-model="name"
+                id="idTask"
+                name="name"/> 
+            <select v-model="importance" name="importance">
+                <option disabled value="">Importance</option>
+                <option value="urgent">Urgent</option>
+                <option value="important">Important</option>
+                <option value="pasimportant">Pas important</option>
+            </select>
+            <br />
+            <button type="submi">Ajouter</button>  <!-- v-bind:value="list_task.name + list_task.importance" -->
+        </form>
     </div>
 </template>
 
 <script>
 export default {
     name: "addTaskForm",
+    props:{
+        list_task: Array
+    },
     data(){
         return{
-            items: ['urgent', 'important', 'pas urgent', 'pas important'],
-            selectedItem: "important" 
+            selected:"",
+            name:"",
+            importance:""
+        }
+    },
+    methods:{
+        addTask(e){
+            e.preventDefault()
+            if(!this.name){
+                alert('Ajouter une tâche!')
+                return
+            }
+            /* this.list_task.push.$emit({
+                    id: this.nextTask++,
+                    name: this.taskName,
+                    importance: this.importance
+            }) */
+            const newTask={
+                id: Math.floor(Math.random() * 10000),
+                name: this.name,
+                importance: this.importance
+            }
+
+            this.$emit('addTask', newTask)
+
+            console.log(newTask)
+
+            this.name = ''
+            this.importance = ''
         }
     }
 }

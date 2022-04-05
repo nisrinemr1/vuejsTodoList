@@ -24,6 +24,11 @@ import taskList from './taskList.vue';
 export default {
     components: { taskList, AddTaskForm },
     name: "TodoList",
+    props:{
+        id: Number,
+        name: String,
+        importance: String
+    },
     data(){
         return{
             isHiddenForm: false,
