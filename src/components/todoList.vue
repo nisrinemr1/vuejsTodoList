@@ -8,7 +8,7 @@
                 </div>
                 <div class="todoForm">
                     <button v-on:click="isHiddenForm = !isHiddenForm">+</button>
-                    <!-- sync permet de donner l'autorisation à l'enfant de modifier le parent -->
+                    <!-- sync give the autorisation to the childrend (component) to modify his parent :hidden.sync="isHiddenForm"-->
                 </div>
             </div>
             <div :class=" 'form ' + isHiddenForm ">

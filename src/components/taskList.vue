@@ -11,8 +11,9 @@
         </div>
         <div class="tasks">
             <div v-for="item in list_task" :key="item.name" class="taskItem">
+                <!-- get the name from the list_task  -->
                 <input class="avenir" type="checkbox">
-                <h3>{{item.name}}</h3>
+                <h3>{{item.name}}</h3> <!-- to show up the item name -->
             </div>
         </div>
     </div>
@@ -30,8 +31,7 @@ export default {
                 {
                     name:"todo2"
                 }
-            ],
-            naruto: "I am naruto :D"
+            ]
         }
     }
 }
