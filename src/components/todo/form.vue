@@ -1,14 +1,15 @@
 <template>
     <div class="form">
-        <button @click="close">X</button>
+
+        <!-- CLOSE FORM BUTTON -->
+        <button class="close-form-btn" @click="close">X</button>
+
+
         <form @submit="addTask">
 
 
             <!-- LABEL -->
             <label>Tâche: </label>
-
-            <!-- LABEL -->
-            <label>{{text}}</label>
 
 
             <!-- NAME -->
@@ -21,7 +22,7 @@
 
             <!-- CATEGORY -->
             <select v-model="category" name="importance">
-                <option disabled value="">Importance</option>
+                <option disabled>Importance</option>
                 <option value="urgent">Urgent</option>
                 <option value="important">Important</option>
                 <option value="pasimportant">Pas important</option>
@@ -40,27 +41,16 @@
 export default {
     name: "addTaskForm",
     props:{
-        show: Boolean,
-        text: String
-    },
-    data(){
-        return{
-            name:"",
-            category: ""
-        }
+        show: Boolean
     },
     methods:{
         addTask(e){
             e.preventDefault()
-            if(!this.name){
-                alert('Ajouter une tâche!')
-                return
-            }
-
             const newTask={
                 id: Math.floor(Math.random() * 10000),
                 name: this.name,
-                importance: this.importance
+                category: this.category,
+                isdone: false
             }
 
             this.$emit('addTask', newTask)
@@ -72,6 +62,9 @@ export default {
         }, 
         close(){
             this.$emit("update:show", false)
+        },
+        newTask(task){
+            this.tasks = [...this.tasks, task]
         }
     }
 }
@@ -79,8 +72,6 @@ export default {
 <style lang="scss" scoped>
 
 .form{
-    text-align: end;
-    transition: all .7s ease-in-out;
     overflow: hidden;
     position: fixed;
     bottom: 0;
@@ -88,19 +79,64 @@ export default {
     width: 100vw;
     display: flex;
     justify-content: end;
-    background-color: rgb(171, 92, 61);
+    flex-direction: row-reverse;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 30px;
 
-    &.true{
-        height: 100px;
+    .close-form-btn{
+        margin-bottom: 60px;
+        margin-right: 40px;
+        border: none;
+        font-size: 1.1rem;
+        background-color: white;
     }
     
-    &.false{
-        height: 0px;
-    }
     form{
-        padding-top: 5%;
-        padding-bottom: 5%;
-        padding-right: 2%;
+        padding-top: 40px;
+
+        label{
+            padding-right: 15px;
+        }
+
+        input{
+            margin-right: 15px;
+            border-radius: 20px;
+            background-color: rgb(253, 197, 207);
+            border: none;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        select{
+            margin-right: 15px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: rgb(253, 197, 207);
+            border: none;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        button{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: rgb(253, 197, 207);
+            border: none;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        button:hover{
+            background-color: rgb(254, 212, 220);
+        }
+
     }
 }
 

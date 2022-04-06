@@ -17,7 +17,6 @@ export default {
 
   body{
     margin: 0;
-    background-color: #ffe5eb;
     font-family: Avenir, Helvetica, Arial, sans-serif;
   }
 
