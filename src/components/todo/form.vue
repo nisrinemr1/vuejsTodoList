@@ -43,6 +43,12 @@ export default {
     props:{
         show: Boolean
     },
+    data(){
+        return{
+            name: "",
+            category:""
+        }
+    },
     methods:{
         addTask(e){
             e.preventDefault()
@@ -53,7 +59,10 @@ export default {
                 isdone: false
             }
 
-            this.$emit('addTask', newTask)
+            this.$emit('uptdate:id', this.id)
+            this.$emit('uptdate:name', this.name )
+            this.$emit('uptdate:category', this.category )
+            this.$emit('uptdate:isdone', this.isdone )
 
             console.log(newTask)
 
@@ -62,9 +71,6 @@ export default {
         }, 
         close(){
             this.$emit("update:show", false)
-        },
-        newTask(task){
-            this.tasks = [...this.tasks, task]
         }
     }
 }
